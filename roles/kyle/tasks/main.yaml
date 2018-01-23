@@ -1,0 +1,17 @@
+- name: ensure SSH directory exists
+  become: true
+  file:
+    path: /home/kyle/.ssh
+    state: directory
+    owner: kyle
+    group: kyle
+    mode: 0700
+
+- name: install SSH public keys
+  become: true
+  copy:
+    src: authorized_keys
+    dest: /home/kyle/.ssh/authorized_keys
+    owner: kyle
+    group: kyle
+    mode: 0600

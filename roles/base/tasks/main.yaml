@@ -1,5 +1,3 @@
-- include: network.yaml
-
 - name: allow SSH connections
   become: true
   ufw:
@@ -26,5 +24,3 @@
   with_items:
     - manpages
     - manpages-dev
-
-- include: www.yaml

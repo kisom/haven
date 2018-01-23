@@ -2,3 +2,5 @@
   connection: ssh
   roles:
     - base
+    - kyle
+    - www
