@@ -1,0 +1,17 @@
+- name: set up netplan
+  become: true
+  register: netplanconf
+  copy:
+    src: netplan.yaml
+    dest: /etc/netplan/01-netcfg.yaml
+    owner: root
+
+- name: generate netplan changes
+  become: true
+  when: netplanconf.changed
+  command: netplan generate
+
+- name: apply netplan changes
+  become: true
+  when: netplanconf.changed
+  command: netplan apply

@@ -1,0 +1,4 @@
+- hosts: haven.dropsonde.net
+  connection: ssh
+  roles:
+    - base

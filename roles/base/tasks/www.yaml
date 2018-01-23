@@ -1,0 +1,23 @@
+- name: set up nginx
+  become: true
+  apt:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - nginx
+
+# ------------------------------------------------------------------------ #
+
+- name: setup kyleisom.net
+  become: true
+  template:
+    src: nginx-static.j2
+    dest: /etc/nginx/sites-enabled/kyleisom
+    mode: 0644
+    owner: www-data
+  vars:
+    context:
+      name: "kyleisom.net www.kyleisom.net"
+      siteroot: /home/kyle/sites/home
+      cloudflare: false
+      ssl: false

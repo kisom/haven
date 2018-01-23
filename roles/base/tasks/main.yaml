@@ -1,0 +1,30 @@
+- include: network.yaml
+
+- name: allow SSH connections
+  become: true
+  ufw:
+    rule: allow
+    name: OpenSSH
+
+- name: allow nginx connections
+  become: true
+  ufw:
+    rule: allow
+    name: Nginx Full
+
+- name: enable firewall
+  become: true
+  ufw:
+    state: enabled
+    logging: "off"
+
+- name: install base packages
+  become: true
+  apt:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - manpages
+    - manpages-dev
+
+- include: www.yaml
