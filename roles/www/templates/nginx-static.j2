@@ -6,16 +6,19 @@ server {
         access_log  /var/log/nginx/access.log;
         error_log   /var/log/nginx/error.log;
 
+{%- if context.ssl %}
+	return 301 https://$host$request_uri;
+{%- else %}
         location / {
 		autoindex on;
 		root {{context.siteroot}};
         }
+{%- endif %}
 }
-
 
 {%- if context.ssl %}
 server {
-        listen 443 ssl;
+        listen 443 ssl http2;
         server_name  {{context.name}};
  
         error_log   /var/log/nginx/error.log;

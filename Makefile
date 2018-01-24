@@ -1,7 +1,7 @@
 # VAULT_PASS := --ask-vault-pass
 # sync applies the Ansible configuration.
 HOST ?=		haven.dropsonde.net
-ANSIBLE ?=	/home/kyle/.local/bin/ansible-playbook
+ANSIBLE ?=	ansible-playbook
 
 .PHONY: sync
 sync:

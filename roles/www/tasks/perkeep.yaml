@@ -1,0 +1,34 @@
+- name: setup perkeep site
+  become: true
+  notify: restart nginx
+  template:
+    src: nginx-proxy.j2
+    dest: /etc/nginx/sites-enabled/perkeep
+    mode: 0644
+    owner: www-data
+  vars:
+    context:
+      name: data.kyleisom.net
+      cloudflare: false
+      upstream: 127.0.0.1:3179
+      ssl: true
+      certbot: data.kyleisom.net
+
+- name: copy perkeep unit file
+  become: true
+  register: perkeep_svc
+  copy:
+    src: perkeep.service
+    dest: /etc/systemd/system/perkeep.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: ensure perkeep service is running
+  become: true
+  when: perkeep_svc.changed
+  systemd:
+    daemon_reload: yes
+    enabled: yes
+    name: perkeep.service
+    state: restarted

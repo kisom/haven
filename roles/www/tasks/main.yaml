@@ -6,14 +6,22 @@
   with_items:
     - nginx
 
+- name: run certbot renewal checks
+  become: true
+  cron:
+    weekday: 6
+    hour: 3
+    minute: 0
+    name: certbot-renewal
+    job: certbot renew
+    state: present
+
 # ------------------------------------------------------------------------ #
 
 # static sites:
 # - apt
 # - codex
-# - dl
 # - hlml
-# - kyleisom
 # - lambda
 # - lux.static
 # - p
@@ -23,8 +31,6 @@
 # - lamondetourne
 # - lemondetourne
 # - lux
-# - perkeep
-
 
 - name: setup kyleisom.net
   become: true
@@ -58,47 +64,20 @@
       ssl: true
       certbot: kyleisom.net
 
-- name: setup perkeep site
+- name: setup yaklog
   become: true
   notify: restart nginx
   template:
-    src: nginx-proxy.j2
-    dest: /etc/nginx/sites-enabled/perkeep
+    src: nginx-static.j2
+    dest: /etc/nginx/sites-enabled/yaklog
     mode: 0644
     owner: www-data
   vars:
     context:
-      name: data.kyleisom.net
+      name: yak.kyleisom.net
+      siteroot: /home/kyle/sites/yaklog
       cloudflare: false
-      upstream: 127.0.0.1:3179
-      ssl: true
-      certbot: data.kyleisom.net
+      ssl: false
+      certbot: yak.kyleisom.net
 
-- name: copy perkeep unit file
-  become: true
-  register: perkeep_svc
-  copy:
-    src: perkeep.service
-    dest: /etc/systemd/system/perkeep.service
-    owner: root
-    group: root
-    mode: 0644
-
-- name: ensure perkeep service is running
-  become: true
-  when: perkeep_svc.changed
-  systemd:
-    daemon_reload: yes
-    enabled: yes
-    name: perkeep.service
-    state: restarted
-
-- name: run certbot renewal checks
-  become: true
-  cron:
-    weekday: 6
-    hour: 3
-    minute: 0
-    name: certbot-renewal
-    job: certbot renew
-    state: present
+- include: perkeep.yaml

@@ -15,3 +15,11 @@
     owner: kyle
     group: kyle
     mode: 0600
+
+- name: sync user groups
+  become: true
+  user:
+    append: true
+    groups:
+      - docker
+    name: kyle

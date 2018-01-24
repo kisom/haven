@@ -4,11 +4,15 @@
     name: "{{item}}"
     state: latest
   with_items:
+    - apt-transport-https
+    - ca-certificates
     - cron
+    - curl
     - mosh
     - manpages
     - manpages-dev
     - openssh-server
+    - software-properties-common
 
 - name: allow SSH connections
   become: true
