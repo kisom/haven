@@ -1,0 +1,17 @@
+[Unit]
+Description=perkeep file store
+After=multi-user.target
+
+[Service]
+ExecStart=/home/kyle/src/camlistore.org/bin/camlistored
+SyslogIdentifier=camlistored
+StandardOutput=syslog
+StandardError=inherit
+User=kyle
+Group=kyle
+RestartSec=60
+Restart=always
+WorkingDirectory=/home/kyle/src/camlistore.org
+
+[Install]
+WantedBy=default.target

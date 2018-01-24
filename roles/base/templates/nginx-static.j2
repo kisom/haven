@@ -1,4 +1,4 @@
-{#- template: requires name, cloudflare, upstream, certbot contexts. #}
+{#- template: requires name, cloudflare, siteroot, certbot contexts. #}
 
 server {
         listen   80;
@@ -7,14 +7,10 @@ server {
         access_log  /var/log/nginx/access.log;
         error_log   /var/log/nginx/error.log;
 
-	location / {
-		proxy_set_header        X-Real-IP  $remote_addr;
-		proxy_pass              http://{{context.upstream}};
-		proxy_set_header        Host $host;
-		proxy_http_version      1.1;
-		proxy_set_header        Upgrade $http_upgrade;
-		proxy_set_header        Connection "upgrade";
-	}
+        location / {
+		autoindex on;
+		root {{context.siteroot}};
+        }
 }
 
 
@@ -49,14 +45,10 @@ server {
 	real_ip_header     CF-Connecting-IP;
 	{%- endif %}	
 
-	location / {
-		proxy_set_header        X-Real-IP  $remote_addr;
-		proxy_pass              http://{{context.upstream}};
-		proxy_set_header        Host $host;
-		proxy_http_version      1.1;
-		proxy_set_header        Upgrade $http_upgrade;
-		proxy_set_header        Connection "upgrade";
-	}
+        location / {
+		autoindex on;
+		root {{context.siteroot}};
+        }
 
         ssl on;
 	ssl_certificate /etc/letsencrypt/live/{{context.certbot}}/fullchain.pem;
