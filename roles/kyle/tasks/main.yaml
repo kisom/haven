@@ -23,3 +23,15 @@
     groups:
       - docker
     name: kyle
+
+- name: install user packages
+  become: true
+  apt:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - keychain
+    - mg
+    - pandoc
+    - texlive-full
+    - w3m

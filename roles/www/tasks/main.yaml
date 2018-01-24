@@ -77,7 +77,23 @@
       name: yak.kyleisom.net
       siteroot: /home/kyle/sites/yak
       cloudflare: false
-      ssl: false
-      certbot: yak.kyleisom.net
+      ssl: true
+      certbot: lambda.kyleisom.net
+
+- name: setup lambda
+  become: true
+  notify: restart nginx
+  template:
+    src: nginx-static.j2
+    dest: /etc/nginx/sites-enabled/lambda
+    mode: 0644
+    owner: www-data
+  vars:
+    context:
+      name: lambda.kyleisom.net
+      siteroot: /home/kyle/sites/lambda
+      cloudflare: false
+      ssl: true
+      certbot: lambda.kyleisom.net
 
 - include: perkeep.yaml

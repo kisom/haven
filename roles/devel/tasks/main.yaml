@@ -1,0 +1,64 @@
+- name: install standard development packages
+  become: true
+  apt:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - autoconf
+    - automake
+    - avr-libc
+    - bc
+    - binutils-avr
+    - bison
+    - build-essential
+    - cmake
+    - cscope
+    - ctags
+    - ctags
+    - devscripts
+    - dh-make
+    - emacs
+    - erlang
+    - erlang-dialyzer
+    - erlang-manpages
+    - flex
+    - fsharp
+    - gcc-arm-none-eabi
+    - gcc-avr
+    - gdb
+    - gforth
+    - gfortran
+    - ghc
+    - gnat
+    - gnat-doc
+    - gprbuild
+    - haskell-stack
+    - libnewlib-arm-none-eabi
+    - libtool
+    - nasm
+    - python3
+    - python3-dev
+    - python3-pip
+    - racket
+    - rebar
+    - sbcl
+    - spark
+    - sqlite3
+    - strace
+    - swi-prolog-doc
+    - swi-prolog-nox
+    - tcpdump
+    - texinfo
+    - threadscope
+    - tig
+    - vim-nox
+    - z3
+
+- name: install standard development packages (latest)
+  become: true
+  apt:
+    name: "{{item}}"
+    state: latest
+  with_items:
+    - clang
+    - git

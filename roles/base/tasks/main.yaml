@@ -1,4 +1,4 @@
-- name: install base packages
+- name: install base packages (latest)
   become: true
   apt:
     name: "{{item}}"
@@ -12,6 +12,7 @@
     - manpages
     - manpages-dev
     - openssh-server
+    - rsync
     - software-properties-common
 
 - name: allow SSH connections
@@ -37,3 +38,18 @@
   ufw:
     state: enabled
     logging: "off"
+
+- name: install common packages
+  become: true
+  apt:
+    name: "{{item}}"
+    state: latest
+  with_items:
+    - apg
+    - atop
+    - bzip2
+    - graphviz
+    - rlwrap
+    - silversearcher-ag
+    - tree
+    - zsh

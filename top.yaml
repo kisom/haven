@@ -2,6 +2,7 @@
   connection: ssh
   roles:
     - base
-    - docker    
+    - devel
+    - docker
     - kyle
     - www

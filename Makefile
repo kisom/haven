@@ -5,7 +5,7 @@ ANSIBLE ?=	ansible-playbook
 
 .PHONY: sync
 sync:
-	ANSIBLE_NOCOLOR=1 $(ANSIBLE) $(VAULT_PASS) -K -i hosts top.yaml
+	ANSIBLE_NOCOLOR=1 time $(ANSIBLE) $(VAULT_PASS) -f 8 -K -i hosts top.yaml
 
 .PHONY: bootstrap
 bootstrap:
