@@ -75,7 +75,7 @@
   vars:
     context:
       name: yak.kyleisom.net
-      siteroot: /home/kyle/sites/yaklog
+      siteroot: /home/kyle/sites/yak
       cloudflare: false
       ssl: false
       certbot: yak.kyleisom.net
