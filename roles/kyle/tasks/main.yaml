@@ -30,6 +30,7 @@
     name: "{{item}}"
     state: present
   with_items:
+    - irssi
     - keychain
     - mg
     - pandoc

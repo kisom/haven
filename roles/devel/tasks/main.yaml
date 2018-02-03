@@ -11,6 +11,7 @@
     - binutils-avr
     - bison
     - build-essential
+    - cabal-install
     - cmake
     - cscope
     - ctags
@@ -32,9 +33,13 @@
     - gnat
     - gnat-doc
     - gprbuild
+    - guile-2.0
+    - guile-2.0-doc
     - haskell-stack
     - libnewlib-arm-none-eabi
     - libtool
+    - lua5.3
+    - luarocks
     - nasm
     - python3
     - python3-dev

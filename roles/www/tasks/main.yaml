@@ -13,7 +13,7 @@
     hour: 3
     minute: 0
     name: certbot-renewal
-    job: certbot renew
+    job: certbot renew -n
     state: present
 
 # ------------------------------------------------------------------------ #
@@ -95,5 +95,21 @@
       cloudflare: false
       ssl: true
       certbot: lambda.kyleisom.net
+
+- name: setup paste
+  become: true
+  notify: restart nginx
+  template:
+    src: nginx-static.j2
+    dest: /etc/nginx/sites-enabled/p
+    mode: 0644
+    owner: www-data
+  vars:
+    context:
+      name: p.kyleisom.net
+      siteroot: /home/kyle/sites/p
+      cloudflare: false
+      ssl: true
+      certbot: p.kyleisom.net
 
 - include: perkeep.yaml
