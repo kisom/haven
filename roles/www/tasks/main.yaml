@@ -112,4 +112,69 @@
       ssl: true
       certbot: p.kyleisom.net
 
-- include: perkeep.yaml
+- name: setup unix-notes
+  become: true
+  notify: restart nginx
+  template:
+    src: nginx-static.j2
+    dest: /etc/nginx/sites-enabled/unix-notes
+    mode: 0644
+    owner: www-data
+  vars:
+    context:
+      name: unix.kyleisom.net
+      siteroot: /home/kyle/sites/unix-notes
+      cloudflare: false
+      ssl: true
+      certbot: unix.kyleisom.net
+
+- name: setup irc front
+  become: true
+  notify: restart nginx
+  template:
+    src: nginx-static.j2
+    dest: /etc/nginx/sites-enabled/irc
+    mode: 0644
+    owner: www-data
+  vars:
+    context:
+      name: irc.tyrfingr.is
+      siteroot: /home/kyle/sites/irc
+      cloudflare: false
+      ssl: true
+      certbot: irc.tyrfingr.is 
+
+- name: setup lisp docs
+  become: true
+  notify: restart nginx
+  template:
+    src: nginx-static.j2
+    dest: /etc/nginx/sites-enabled/codex
+    mode: 0644
+    owner: www-data
+  vars:
+    context:
+      name: codex.metacircular.net
+      siteroot: /home/kyle/sites/codex
+      cloudflare: true
+      ssl: true
+      certbot: codex.metacircular.net
+
+- name: setup notebook
+  become: true
+  notify: restart nginx
+  template:
+    src: nginx-static.j2
+    dest: /etc/nginx/sites-enabled/notebook
+    mode: 0644
+    owner: www-data
+  vars:
+    context:
+      name: notes.kyleisom.net
+      siteroot: /home/kyle/sites/notebook
+      cloudflare: false
+      ssl: true
+      certbot: notes.kyleisom.net
+
+- import_tasks: perkeep.yaml
+- import_tasks: ghost.yaml

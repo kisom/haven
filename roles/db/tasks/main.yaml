@@ -1,0 +1,17 @@
+- name: set up postgres
+  become: true
+  apt:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - postgresql-contrib
+    - postgresql-doc
+    - postgresql
+    - postgis
+
+- name: start postgres
+  become: true
+  service:
+    name: postgresql
+    state: started
+    enabled: yes

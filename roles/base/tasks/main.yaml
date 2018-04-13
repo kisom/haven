@@ -49,6 +49,7 @@
     - atop
     - bzip2
     - graphviz
+    - htop
     - rlwrap
     - silversearcher-ag
     - tree

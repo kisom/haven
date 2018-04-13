@@ -1,0 +1,17 @@
+- name: setup le monde tourne nginx proxy
+  become: true
+  notify: restart nginx
+  template:
+    src: nginx-proxy.j2
+    dest: /etc/nginx/sites-enabled/lemondetourne
+    mode: 0644
+    owner: www-data
+  vars:
+    context:
+      name: "lemondetourne.net www.lemondetourne.net"
+      cloudflare: false
+      upstream: 127.0.0.1:2368
+      ssl: true
+      certbot: lemondetourne.net
+      settings:
+        - "client_max_body_size 8M"
