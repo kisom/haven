@@ -9,7 +9,6 @@
 - name: run certbot renewal checks
   become: true
   cron:
-    weekday: 6
     hour: 3
     minute: 0
     name: certbot-renewal
